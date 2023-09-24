@@ -38,6 +38,8 @@ import com.google.samples.apps.sunflower.databinding.FragmentPlantDetailBinding
 import com.google.samples.apps.sunflower.utilities.InjectorUtils
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 
+import androidx.compose.ui.platform.ViewCompositionStrategy
+
 /**
  * A fragment representing a single Plant detail screen.
  */
@@ -111,9 +113,14 @@ class PlantDetailFragment : Fragment() {
                 }
             }
 
-            composeView.setContent {
-                MaterialTheme {
-                    PlantDetailDescription(plantDetailViewModel)
+            composeView.apply {
+                setViewCompositionStrategy(
+                    ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+                )
+                setContent {
+                    MaterialTheme {
+                        PlantDetailDescription(plantDetailViewModel)
+                    }
                 }
             }
 
