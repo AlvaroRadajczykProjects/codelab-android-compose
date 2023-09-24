@@ -39,6 +39,7 @@ import com.google.samples.apps.sunflower.utilities.InjectorUtils
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import com.google.samples.apps.sunflower.theme.SunflowerTheme
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -118,7 +119,7 @@ class PlantDetailFragment : Fragment() {
                     ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
                 )
                 setContent {
-                    MaterialTheme {
+                    SunflowerTheme {
                         PlantDetailDescription(plantDetailViewModel)
                     }
                 }
