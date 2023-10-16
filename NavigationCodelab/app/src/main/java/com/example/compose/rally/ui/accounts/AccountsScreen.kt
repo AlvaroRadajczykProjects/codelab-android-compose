@@ -66,6 +66,7 @@ fun SingleAccountScreen(
 ) {
     val account = remember(accountType) { UserData.getAccount(accountType) }
     StatementBody(
+        modifier = Modifier.semantics { contentDescription = account.name+"_SingleAccount" },
         items = listOf(account),
         colors = { account.color },
         amounts = { account.balance },

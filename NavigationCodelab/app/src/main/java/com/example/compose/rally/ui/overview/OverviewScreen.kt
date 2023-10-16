@@ -236,7 +236,7 @@ private fun AccountsCard(onClickSeeAll: () -> Unit, onAccountClick: (String) -> 
         values = { it.balance }
     ) { account ->
         AccountRow(
-            modifier = Modifier.clickable { onAccountClick(account.name) },
+            modifier = Modifier.clickable { onAccountClick(account.name) }.semantics { contentDescription = account.name },
             name = account.name,
             number = account.number,
             amount = account.balance,
