@@ -48,6 +48,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -61,12 +64,22 @@ import com.example.jetnews.ui.theme.JetnewsTheme
 
 @Composable
 fun PostCardHistory(post: Post, navigateToArticle: (String) -> Unit) {
+    val showFewerLabel = stringResource(R.string.cd_show_fewer)
+
     var openDialog by remember { mutableStateOf(false) }
     Row(
         Modifier.clickable (
             onClickLabel = stringResource(R.string.action_read_article)
         ) {
             navigateToArticle(post.id)
+        }
+        .semantics {
+            customActions = listOf(
+                CustomAccessibilityAction(
+                    label = showFewerLabel,
+                    action = { openDialog = true; true }
+                )
+            )
         }
     ) {
         Image(
@@ -106,7 +119,10 @@ fun PostCardHistory(post: Post, navigateToArticle: (String) -> Unit) {
                     .padding(12.dp)
                     .size(24.dp)
             )*/
-            IconButton(onClick = { openDialog = true }) {
+            IconButton(
+                modifier = Modifier.clearAndSetSemantics {  },
+                onClick = { openDialog = true }
+            ) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = stringResource(R.string.cd_show_fewer)
